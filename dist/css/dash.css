@@ -1,0 +1,35 @@
+﻿.dashboard {
+  display: grid;
+  grid-template-columns: 200px auto;
+  grid-template-rows: 50px auto;
+  grid-template-areas:
+    "menu header"
+    "menu content";
+  height: 100vh;
+}
+
+.menu {
+  grid-area: menu;
+  background-color: #604e4e;
+  padding: 10px;
+}
+
+.content {
+  grid-area: content;
+  padding: 10px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
