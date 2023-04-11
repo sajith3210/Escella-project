@@ -25,7 +25,10 @@ public partial class login : System.Web.UI.Page
         con.Close();
         if (count > 0)
         {
-            Response.Redirect("~/index.aspx");
+            Session["email"] = email;
+       
+
+            Response.Redirect("~/dashbo.aspx");
         }
         else
         {

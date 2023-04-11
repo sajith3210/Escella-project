@@ -10,7 +10,10 @@ public partial class upload : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (Session["email"] == null)
+        {
+            Response.Redirect("login.aspx");
+        }
     }
     protected void upload_btn_Click(object sender, EventArgs e)
     {
