@@ -28,7 +28,7 @@ public partial class login : System.Web.UI.Page
             Session["email"] = email;
        
 
-            Response.Redirect("~/dashbo.aspx");
+            Response.Redirect("~/home.aspx");
         }
         else
         {
