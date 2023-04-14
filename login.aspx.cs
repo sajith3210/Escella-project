@@ -26,7 +26,6 @@ public partial class login : System.Web.UI.Page
         if (count > 0)
         {
             Session["email"] = email;
-       
 
             Response.Redirect("~/home.aspx");
         }
