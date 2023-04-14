@@ -49,12 +49,12 @@ public partial class upload : System.Web.UI.Page
  
         
         string date;
-        String type;
-        String stock;
+        string Direction;
+        string AssetName;
         int qty;
-        int price;
-        int amount;
-        int total_qty;
+        float price;
+        float amount;
+        int Balance;
         string path = Path.GetFileName(FileUpload1.FileName);
         path = path.Replace(" ", "");
         FileUpload1.SaveAs(Server.MapPath("~/ExcelFiles/") + path);
@@ -69,14 +69,18 @@ public partial class upload : System.Web.UI.Page
             // Response.Write("<br/>"+dr[0].ToString());
 
                 date = dr[0].ToString();
-                type = dr[1].ToString();
-                stock = dr[2].ToString();
+                Direction = dr[1].ToString();
+                AssetName = dr[2].ToString();
                 qty = Convert.ToInt32(dr[3].ToString());
 
-                price = Convert.ToInt32(dr[4].ToString());
-                amount = Convert.ToInt32(dr[5].ToString());
-                total_qty = Convert.ToInt32(dr[6].ToString());
-                savedata(date, type, stock, qty, price, amount, total_qty, rowId);
+                price = float.Parse(dr[4].ToString());
+
+                string am = dr[5].ToString();
+                am = am.Replace(",", ""); // remove comma
+                amount = float.Parse(am);
+                
+                Balance = Convert.ToInt32(dr[6].ToString());
+                savedata(date, Direction, AssetName, qty, price, amount, Balance, rowId);
        
 
 
@@ -86,15 +90,29 @@ public partial class upload : System.Web.UI.Page
     }
 
    //    , , ,
-    private void savedata(String date, String type, String stock, int qty, int price, int amount, int total_qty, int rowId)
+    private void savedata(String date, String Direction, String AssetName, int qty, float price, float amount, int Balance, int rowId)
     {
-        String query = "insert into stock_table(Date,Type,Stock,Quantity,price,Amount,Total_quantity,regst_id) values(" + date + ",'" + type + "','" + stock + "','" + qty + "','" + price + "','" + amount + "','" + total_qty + "','" + rowId + "')";
+
         // String mycon = "Data Source=HP-PC\\SQLEXPRESS; Initial Catalog=ExcelDatabase; Integrated Security=true";
         //SqlConnection con = new SqlConnection(mycon);
+        //String query = "insert into stock_table(Date,Direction,AssetName,Quantity,price,Amount,Balance,regst_id) values(" + date + ",'" + Direction + "','" + AssetName + "','" + qty + "','" + price + "','" + amount + "','" + Balance + "','" + rowId + "')";
+
+        string query = "INSERT INTO stock_table (Date, Direction, AssetName,Quantity,price,Amount,Balance,regst_id) VALUES (@Date, @Direction, @AssetName,@Quantity,@price,@Amount,@Balance,@regst_id)";
+       
         con.Open();
-        SqlCommand cmd = new SqlCommand();
-        cmd.CommandText = query;
-        cmd.Connection = con;
+        SqlCommand cmd = new SqlCommand(query, con);
+        // Add parameter values to SqlCommand object
+        cmd.Parameters.AddWithValue("@Date", date);
+        
+        cmd.Parameters.AddWithValue("@Direction", Direction);
+        cmd.Parameters.AddWithValue("@AssetName", AssetName);
+        cmd.Parameters.AddWithValue("@Quantity",qty );
+        cmd.Parameters.AddWithValue("@price", price);
+        cmd.Parameters.AddWithValue("@Amount", amount);
+        cmd.Parameters.AddWithValue("@Balance", Balance);
+        cmd.Parameters.AddWithValue("@regst_id", rowId);
+        //cmd.CommandText = query;
+        //cmd.Connection = con;
         cmd.ExecuteNonQuery();
         con.Close();
     }
