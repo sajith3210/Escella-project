@@ -8,6 +8,8 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <asp:Panel ID="Panel1" runat="server">
+        </asp:Panel>
 <div id="myTableContainer" runat="server">
 
 

@@ -11,51 +11,54 @@ using System.IO;
 using System.Data.OleDb;
 using System.Text;
 using System.Web.UI.HtmlControls;
+using System.Configuration;
 public partial class sample_ac : System.Web.UI.Page
 {
     
     protected void Page_Load(object sender, EventArgs e)
     {
-        // Create a connection to the database
-        SqlConnection con = new SqlConnection("Data Source=(local);Initial Catalog=escelladb;Integrated Security=True");
+        if (!Page.IsPostBack) {
+            string mainconn = ConfigurationManager.ConnectionStrings["myconnection"].ConnectionString;
+            SqlConnection con = new SqlConnection(mainconn);
+            string sqlquery = "select * from regst ";
+            SqlCommand cmd = new SqlCommand(sqlquery, con);
+            con.Open();
+            SqlDataAdapter ada = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            ada.Fill(dt);
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<center>");
+            sb.Append("<h1>How to bind data from Database in html table</h1>");
+            sb.Append("<h2>Using string builder class </h2>");
+            sb.Append("<hr />");
+            sb.Append("<table border=1>");
+            sb.Append("<tr>");
+            foreach (DataColumn dc in dt.Columns)
+            {
+                sb.Append("<th>");
+                sb.Append(dc.ColumnName.ToUpper());
+                sb.Append("</th>");
+            }
+            sb.Append("</tr>");
 
-        // Open the connection
-        con.Open();
+            foreach (DataRow dr in dt.Rows)
+            {
+                sb.Append("<tr>");
+                foreach (DataColumn dc in dt.Columns)
+                {
+                    sb.Append("<th>");
+                    sb.Append(dr[dc.ColumnName].ToString());
+                    sb.Append("</th>");
+                }
+                
+            }
+            sb.Append("</tr>");
+            sb.Append("</table>");
+            sb.Append("</center>");
+            Panel1.Controls.Add(new Label { Text = sb.ToString() });
+            con.Close();
 
-        // Create a SQL command to retrieve the data
-        SqlCommand command = new SqlCommand("SELECT * FROM regst", con);
-
-        // Execute the command and retrieve the data
-        SqlDataReader reader = command.ExecuteReader();
-
-        // Create a new HTML table
-        HtmlTable table = new HtmlTable();
-
-        // Add the table header row
-        HtmlTableRow headerRow = new HtmlTableRow();
-        headerRow.Cells.Add(new HtmlTableCell("id"));
-        headerRow.Cells.Add(new HtmlTableCell("Name"));
-        headerRow.Cells.Add(new HtmlTableCell("Email"));
-        headerRow.Cells.Add(new HtmlTableCell("Password"));
-        table.Rows.Add(headerRow);
-
-        // Iterate through the data and add the rows and cells to the table
-        while (reader.Read())
-        {
-            HtmlTableRow dataRow = new HtmlTableRow();
-            dataRow.Cells.Add(new HtmlTableCell(reader["id"].ToString()));
-            dataRow.Cells.Add(new HtmlTableCell(reader["Name"].ToString()));
-            dataRow.Cells.Add(new HtmlTableCell(reader["Email"].ToString()));
-            dataRow.Cells.Add(new HtmlTableCell(reader["Password"].ToString()));
-            table.Rows.Add(dataRow);
         }
-
-        // Close the data reader and the database connection
-        reader.Close();
-        con.Close();
-        HtmlGenericControl myTableContainer = (HtmlGenericControl)FindControl("myTableContainer");
-        // Add the table to the web form
-        myTableContainer.Controls.Add(table);
 
     }
     protected void Button1_Click(object sender, EventArgs e)
