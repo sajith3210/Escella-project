@@ -1,25 +1,15 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="home.aspx.cs" Inherits="dashbo" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="report_capi_gain.aspx.cs" Inherits="dummy_form" %>
 
+<%@ Register assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" namespace="System.Web.UI.DataVisualization.Charting" tagprefix="asp" %>
 
 <!DOCTYPE html>
-<html lang="en">
-  <head>
 
-
-
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+     <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
 <link rel="icon" type="image/png" href="./assets/img/favicon.png">
-
-<title>
-   Excella software
-</title>
-
-
-
-<!--     Fonts and icons     -->
+    <!--     Fonts and icons     -->
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
 
 <!-- Nucleo Icons -->
@@ -41,16 +31,9 @@
 <!--bootstrap cdn -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" integrity="sha384-PP9oJzD/6yA+hu1/MLI7BCuOZ+rYV7Nk8Jhc+V7zR9X2mdsUdhmuK/MJxazU6AmF" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-LlPsIwE8JqpL2bivKJd9X1gKj8e/zW+5Cr5ArLZJfKgN1aGcH5v+K4NoGqBTJyP8" crossorigin="anonymous"></script>
-  </head>
-
-
-  <body style="background-image:url('images/bg1.jpeg');background-size:cover;background-position:center;background-repeat:no-repeat;" class="g-sidenav-show  bg-gray-100">
-    
-
-    
-
-    
-      <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
+</head>
+<body style="background-image:url('images/bg1.jpeg');background-size:cover;background-position:center;background-repeat:no-repeat;" class="g-sidenav-show  bg-gray-100">
+          <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
 
   <div class="sidenav-header">
     <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -303,28 +286,10 @@
             </div>
        <div class="container d-flex justify-content-center"">
       <div class="content mx-auto">
-<div class="carousel" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item">
-      <img src="images/ict2.jpeg" class="d-block w-100" alt="Slide 1">
-    </div>
-    <div class="carousel-item">
-      <img src="images/ict2.jpeg3" class="d-block w-100" alt="Slide 2">
-    </div>
-    <div class="carousel-item">
-      <img src="images/ict2.jpeg4" class="d-block w-100" alt="Slide 3">
-    </div>
-    <!-- Add more slide images as needed -->
-  </div>
-</div>
-    </div>
-</div>
+          </div>
          
        </main>
-    
-
-      
-          <div class="fixed-plugin">
+           <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
       <i class="material-icons py-2">settings</i>
     </a>
@@ -426,35 +391,53 @@
       
       
 
-
 <!--   Core JS Files   -->
 <script src="./assets/js/core/popper.min.js" ></script>
 <script src="./assets/js/core/bootstrap.min.js" ></script>
 <script src="./assets/js/plugins/perfect-scrollbar.min.js" ></script>
 <script src="./assets/js/plugins/smooth-scrollbar.min.js" ></script>
 
-
-
-
-
-
-
-
-<script>
-    var win = navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) {
-        var options = {
-            damping: '0.5'
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5"></div>
+            <div class="col-md-7">
+    <form id="form1" runat="server">
+        <asp:GridView ID="GridView1" runat="server" BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" CellPadding="2" ForeColor="Black" GridLines="None" Height="200px" Width="300px" Class="mb-6">
+            <AlternatingRowStyle BackColor="PaleGoldenrod" />
+            <FooterStyle BackColor="Tan" />
+            <HeaderStyle BackColor="Tan" Font-Bold="True" />
+            <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" HorizontalAlign="Center" />
+            <SelectedRowStyle BackColor="DarkSlateBlue" ForeColor="GhostWhite" />
+            <SortedAscendingCellStyle BackColor="#FAFAE7" />
+            <SortedAscendingHeaderStyle BackColor="#DAC09E" />
+            <SortedDescendingCellStyle BackColor="#E1DB9C" />
+            <SortedDescendingHeaderStyle BackColor="#C2A47B" />
+        </asp:GridView>
+   
+        <asp:Chart ID="Chart1" runat="server" BackColor="IndianRed" BackGradientStyle="LeftRight" Height="263px" Palette="SemiTransparent">
+            <Series>
+                <asp:Series Color="255, 128, 0" Font="Microsoft Sans Serif, 24pt" Name="Capital Gain">
+                </asp:Series>
+            </Series>
+            <ChartAreas>
+                <asp:ChartArea Name="ChartArea1">
+                </asp:ChartArea>
+            </ChartAreas>
+        </asp:Chart>
+    </form>
+                </div>
+        </div>
+    </div>
+    
+    
+    <script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+            var options = {
+                damping: '0.5'
+            }
+            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
-        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-    }
 </script>
-
-<!-- Github buttons -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-
-
-<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc --><script src="./assets/js/material-dashboard.min.js?v=3.0.5"></script>
-  </body>
-
+</body>
 </html>
