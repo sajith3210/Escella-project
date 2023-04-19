@@ -88,185 +88,46 @@ public partial class upload : System.Web.UI.Page
 
         // add report table 
         con.Open();  //rep tble con ope
-        String prd_names = "SELECT DISTINCT AssetName FROM stock_table WHERE regst_id=@regst_id";
+        String prd_names = "SELECT  AssetName FROM stock_table WHERE regst_id=@regst_id";
         SqlCommand cmddd = new SqlCommand(prd_names, con);
         cmddd.Parameters.AddWithValue("@regst_id", rowId);
-        //SqlDataReader readerr = cmddd.ExecuteReader(); this code see up to line  
-        
-        String product_name;
-        String amruth_anjan_buy = "SELECT SUM(Quantity) FROM stock_table WHERE Direction = 'BUY' and regst_id=@regst_id and AssetName='AMRUTANJAN'";
-        SqlCommand cmd_amr_buy = new SqlCommand(amruth_anjan_buy, con);
-        cmd_amr_buy.Parameters.AddWithValue("@regst_id", rowId);
-        Int32 amruth_anjan_buy_result = (Int32) cmd_amr_buy.ExecuteScalar();
-       System.Diagnostics.Debug.WriteLine("bysdf result isdf kon ol", amruth_anjan_buy_result);
-        //SqlDataReader amr_buy_reader = cmd_amr_buy.ExecuteReader();
-        //amr_buy_reader.Close();
-        
-        String amruth_anjan_sell = "SELECT SUM(Quantity) FROM stock_table WHERE Direction = 'SELL' and regst_id=@regst_id and AssetName='AMRUTANJAN'";   
-        SqlCommand cmd_amr_sell = new SqlCommand(amruth_anjan_sell, con);
-        cmd_amr_sell.Parameters.AddWithValue("@regst_id", rowId);
-        Int32 amruth_anjan_sell_result = (Int32)cmd_amr_sell.ExecuteScalar();
-        
 
-        String ASIANPAINT_buy = "SELECT SUM(Quantity) FROM stock_table WHERE Direction = 'BUY' and regst_id=@regst_id and AssetName='ASIANPAINT'";   
-        SqlCommand cmd_asian_buy = new SqlCommand(ASIANPAINT_buy, con);
-        cmd_asian_buy.Parameters.AddWithValue("@regst_id", rowId);
-        Int32 asian_paint_buy_result = (Int32)cmd_asian_buy.ExecuteScalar();
-        
-
-        String ASIANPAINT_sell = "SELECT SUM(Quantity) FROM stock_table WHERE Direction = 'SELL' and regst_id=@regst_id and AssetName='ASIANPAINT'";  
-        SqlCommand cmd_asian_sell = new SqlCommand(ASIANPAINT_sell, con);
-        cmd_asian_sell.Parameters.AddWithValue("@regst_id", rowId);
-        Int32 asian_paint_sell_result = (Int32)cmd_asian_sell.ExecuteScalar();
-
-        String BHARTIARTL_buy = "SELECT SUM(Quantity) FROM stock_table WHERE Direction = 'BUY' and regst_id=@regst_id and AssetName='BHARTIARTL'";    
-        SqlCommand cmd_BHARTIARTL_buy = new SqlCommand(BHARTIARTL_buy, con);
-        cmd_BHARTIARTL_buy.Parameters.AddWithValue("@regst_id", rowId);
-        Int32 bharatu_airtel_buy_result = (Int32)cmd_BHARTIARTL_buy.ExecuteScalar();
-
-        String BHARTIARTL_sell = "SELECT SUM(Quantity) FROM stock_table WHERE Direction = 'SELL' and regst_id=@regst_id and AssetName='BHARTIARTL'";  
-        SqlCommand cmd_BHARTIARTL_sell = new SqlCommand(BHARTIARTL_sell, con);
-        cmd_BHARTIARTL_sell.Parameters.AddWithValue("@regst_id", rowId);
-        Int32 bharatu_airtel_sell_result = (Int32)cmd_BHARTIARTL_sell.ExecuteScalar();
-
-        String BLUESTARCO_buy = "SELECT SUM(Quantity) FROM stock_table WHERE Direction = 'BUY' and regst_id=@regst_id and AssetName='BLUESTARCO'";   
-        SqlCommand cmd_BLUESTARCO_buy = new SqlCommand(BLUESTARCO_buy, con);
-        cmd_BLUESTARCO_buy.Parameters.AddWithValue("@regst_id", rowId);
-        Int32 BLUESTARCO_buy_result = (Int32)cmd_BLUESTARCO_buy.ExecuteScalar();
-
-        String BLUESTARCO_sell = "SELECT SUM(Quantity) FROM stock_table WHERE Direction = 'BUY' and regst_id=@regst_id and AssetName='BLUESTARCO'";   
-        SqlCommand cmd_BLUESTARCO_sell = new SqlCommand(BLUESTARCO_sell, con);
-        cmd_BLUESTARCO_sell.Parameters.AddWithValue("@regst_id", rowId);
-        Int32 BLUESTARCO_sell_result = (Int32)cmd_BLUESTARCO_sell.ExecuteScalar();
-
-        String CDSL_buy = "SELECT SUM(Quantity) FROM stock_table WHERE Direction = 'BUY' and regst_id=@regst_id and AssetName='CDSL'";       
-        SqlCommand cmd_CDSL_buy = new SqlCommand(CDSL_buy, con);
-        cmd_CDSL_buy.Parameters.AddWithValue("@regst_id", rowId);
-        Int32 CDSL_buy_result = (Int32)cmd_CDSL_buy.ExecuteScalar();
-
-        String CDSL_sell = "SELECT SUM(Quantity) FROM stock_table WHERE Direction = 'BUY' and regst_id=@regst_id and AssetName='CDSL'";
-        SqlCommand cmd_CDSL_sell = new SqlCommand(CDSL_sell, con);
-        cmd_CDSL_sell.Parameters.AddWithValue("@regst_id", rowId);
-        Int32 CDSL_sell_result = (Int32)cmd_CDSL_sell.ExecuteScalar();
-
-        String CHOLAFIN_buy = "SELECT SUM(Quantity) FROM stock_table WHERE Direction = 'BUY' and regst_id=@regst_id and AssetName='CHOLAFIN'";    
-        SqlCommand cmd_CHOLAFIN_buy = new SqlCommand(CHOLAFIN_buy, con);
-        cmd_CHOLAFIN_buy.Parameters.AddWithValue("@regst_id", rowId);
-        Int32 CHOLAFIN_buy_result = (Int32)cmd_CHOLAFIN_buy.ExecuteScalar();
-
-        String CHOLAFIN_sell = "SELECT SUM(Quantity) FROM stock_table WHERE Direction = 'BUY' and regst_id=@regst_id and AssetName='CHOLAFIN'";     
-        SqlCommand cmd_CHOLAFIN_sell = new SqlCommand(CHOLAFIN_sell, con);
-        cmd_CHOLAFIN_sell.Parameters.AddWithValue("@regst_id", rowId);
-        Int32 CHOLAFIN_sell_result = (Int32)cmd_CHOLAFIN_buy.ExecuteScalar();
-        
-
-        Int32 int_amramruth_anjan_buy;
-        int int_amruth_anjan_sell;
-        int amruthan_capital_gain;
-
-        int int_asianpaint_buy;
-        int int_asianpaint_sell;
-        int asian_paint_capital_gain;
-
-        int int_bharati_airtel_buy;
-        int int_bharati_airtel_sell;
-        int bharati_airtel_capital_gain;
-
-        int int_BLUESTARCO_buy;
-        int int_BLUESTARCO_sell;
-        int bluestarco_capital_gain;
-
-        int int_CDSL_buy;
-        int int_CDSL_sell;
-        int CDSL_capital_gain;
-
-        int int_CHOLAFIN_buy;
-        int int_CHOLAFIN_sell;
-        int CHOLAFIN_capital_gain;
-        try
-        {
-            int_amramruth_anjan_buy = amruth_anjan_buy_result;
-            int_amruth_anjan_sell = amruth_anjan_sell_result;
-            amruthan_capital_gain = int_amramruth_anjan_buy * (int_amramruth_anjan_buy - int_amruth_anjan_sell);
-
-            int_asianpaint_buy = asian_paint_buy_result;
-            int_asianpaint_sell = asian_paint_sell_result;
-            asian_paint_capital_gain = int_asianpaint_buy * (int_asianpaint_buy - int_asianpaint_sell);
-
-            int_bharati_airtel_buy = bharatu_airtel_buy_result;
-            int_bharati_airtel_sell = bharatu_airtel_sell_result;
-            bharati_airtel_capital_gain = int_bharati_airtel_buy * (int_bharati_airtel_buy - int_bharati_airtel_sell);
-
-            int_BLUESTARCO_buy = BLUESTARCO_buy_result;
-            int_BLUESTARCO_sell = BLUESTARCO_sell_result;
-            bluestarco_capital_gain = int_BLUESTARCO_buy * (int_BLUESTARCO_buy - int_BLUESTARCO_sell);
-
-            int_CDSL_buy = CDSL_buy_result;
-            int_CDSL_sell = CDSL_sell_result;
-            CDSL_capital_gain = int_CDSL_buy * (int_CDSL_buy - int_CDSL_sell);
-
-            int_CHOLAFIN_buy = CHOLAFIN_buy_result;
-            int_CHOLAFIN_sell = CHOLAFIN_sell_result;
-            CHOLAFIN_capital_gain = int_CHOLAFIN_buy * (int_CHOLAFIN_buy - int_CHOLAFIN_sell);
-        }
-        catch (DivideByZeroException ex)
-        {
-            amruthan_capital_gain = 0;
-            asian_paint_capital_gain = 0;
-            bharati_airtel_capital_gain = 0;
-            bluestarco_capital_gain = 0;
-            CDSL_capital_gain = 0;
-            CHOLAFIN_capital_gain = 0;
-        }
-        int amr_capi_gain;
-        int asian_pain_gain;
-        int bharati_gain;
-        int bluestarco_gain;
-        int cdsl_gain;
-        int cholafin_gain;
-        int num = 1;
-        SqlDataReader readerr = cmddd.ExecuteReader(); 
+        SqlDataReader readerr = cmddd.ExecuteReader();
+        List<string> item_nm = new List<string>();
+       
+        String pname;
+        int index = 0;
         while (readerr.Read())
         {
-            if (num == 1)
-            {
-                product_name = (string)readerr[0];  //product name amruthnjan
-                amr_capi_gain = amruthan_capital_gain;
-                save_to_report(product_name, amr_capi_gain, rowId);
-            }
-            if (num == 2)
-            {
-                product_name = (string)readerr[0];  //product name asian paint
-                asian_pain_gain = asian_paint_capital_gain;
-                save_to_report(product_name, asian_pain_gain, rowId);
-            }
-            if (num == 3)
-            {
-                product_name = (string)readerr[0];  //product name bharati airtel
-                bharati_gain = bharati_airtel_capital_gain;
-                save_to_report(product_name, bharati_gain, rowId);
-            }
-            if (num == 4)
-            {
-                product_name = (string)readerr[0];  //product name bluestarco
-                bluestarco_gain = bluestarco_capital_gain;
-                save_to_report(product_name, bluestarco_gain, rowId);
-            }
-            if (num == 5)
-            {
-                product_name = (string)readerr[0];  //product name cdsl_gain
-                cdsl_gain = CDSL_capital_gain;
-                save_to_report(product_name, cdsl_gain, rowId);
-            }
-            if (num == 6)
-            {
-                product_name = (string)readerr[0];  //product name cholafin_gain
-                cholafin_gain = CHOLAFIN_capital_gain;
-                save_to_report(product_name, cholafin_gain, rowId);
-            }
-            num++;
-            
-            
+            pname = (string) readerr[0];
+            item_nm.Add(pname);
+            index++;           
+        }
+        //remove duplicate value frm item_nm variable and save into remove_dup variable
+        List<string> remove_dup_item_nm = item_nm.Distinct().ToList();
+        //retrive each value from item_nm list
+        string buy_itm_price;
+        string sell_itm_price;
+        int capital_gain;
+        
+        foreach (string pn in remove_dup_item_nm)
+        {
+            string product_name=pn;
+           SqlConnection con_capi_gain = new SqlConnection("Data Source=(local);Initial Catalog=escelladb;Integrated Security=True");
+           con_capi_gain.Open();
+           buy_itm_price = "SELECT SUM(Quantity) FROM stock_table WHERE Direction = 'BUY' and regst_id=@regst_id and AssetName=@AssetName";
+            SqlCommand cmd_buy = new SqlCommand(buy_itm_price, con_capi_gain);
+            cmd_buy.Parameters.AddWithValue("@regst_id", rowId);
+            cmd_buy.Parameters.AddWithValue("@AssetName", product_name);
+            Int32 buy_result = (Int32)cmd_buy.ExecuteScalar();
+            sell_itm_price = "SELECT SUM(Quantity) FROM stock_table WHERE Direction = 'SELL' and regst_id=@regst_id and AssetName='ASIANPAINT'";
+            SqlCommand cmd_sell = new SqlCommand(sell_itm_price, con_capi_gain);
+            cmd_sell.Parameters.AddWithValue("@regst_id", rowId);
+            cmd_sell.Parameters.AddWithValue("@AssetName", product_name);
+            Int32 sell_result = (Int32)cmd_sell.ExecuteScalar();
+            capital_gain = buy_result * (buy_result - sell_result);   
+             save_to_report(product_name, capital_gain, rowId);
+             con_capi_gain.Close();
         }
         con.Close();
          } // upload_btn_Click end
