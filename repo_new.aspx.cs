@@ -7,12 +7,11 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class report : System.Web.UI.Page
+public partial class repo_new : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
-
     {
-        
+          
         SqlConnection con = new SqlConnection("Data Source=(local);Initial Catalog=escelladb;Integrated Security=True");
         DataTable table = new DataTable();
 
@@ -109,14 +108,14 @@ public partial class report : System.Web.UI.Page
                  sell_date = se["Date"].ToString();
                  sale_price = se["price"].ToString();
                  sale_price_int = int.Parse(sale_price);
-                
-
-                foreach (DataRow be in ds_buy.Tables[0].Rows)
+                int K=0;
+                for(int i=0;i<buy_table.Rows.Count;i++)
+                //foreach (DataRow be in ds_buy.Tables[0].Rows)
                 {
-                    buy_qu = be["Quantity"].ToString();
+                    buy_qu = buy_table.Rows[i]["Quantity"].ToString();
                     buy_qu_int = int.Parse(buy_qu);
-                    buy_date = be["Date"].ToString();
-                    pur_price = se["price"].ToString();
+                    buy_date = buy_table.Rows[i]["Date"].ToString();
+                    pur_price = buy_table.Rows[i]["price"].ToString(); 
                     pur_price_int = int.Parse(pur_price);
 
                     //value at coast calculation
@@ -134,23 +133,26 @@ public partial class report : System.Web.UI.Page
                     if (daysDifference < 365) {
                         STCG=value_at_sal - value_at_co;
                     }
-                    row_tb["Script_Name"] = scriptname;
-                    row_tb["quantity_sold"] = sell_qu;
-                    row_tb["sell_date"] = sell_date;
-                    row_tb["purchase_date"] = buy_date;
-                    row_tb["Holding_days"] = daysDifference;
-                    row_tb["purchase_price"] = pur_price;
-                    row_tb["sale_price"] = sale_price;
-                    row_tb["value_at_coast"] = value_at_co;
-                    row_tb["value_at_sale"] = value_at_sal;
-                    row_tb["stcg"] = STCG;
-                    table.Rows.Add(row_tb);
-                    buy_table.Rows[rowIndex].Delete();
-                    buy_table.AcceptChanges();
 
+
+                    table.Rows[K][0] = scriptname;
+                    table.Rows[K][0] = sell_qu;
+                    table.Rows[K][0] = sell_date;
+                    table.Rows[K][0] = buy_date;
+                    table.Rows[K][0] = daysDifference;
+                    table.Rows[K][0] = pur_price;
+                    table.Rows[K][0] = sale_price;
+                    table.Rows[K][0] = value_at_co;
+                    table.Rows[K][0] = value_at_sal;
+                    
+                     buy_table.Rows[i].Delete();
+                    buy_table.AcceptChanges();
+                    K++;
+                    break;
+                    //be--;
                 }
 
-             
+                rowIndex++;
             }
 
           //  DataColumn quantity_sold_columnn = new DataColumn("quantity_sold", typeof(int));
@@ -166,9 +168,12 @@ public partial class report : System.Web.UI.Page
             // ...
         }
 
+        GridView1.DataSource = table;
+        GridView1.DataBind();
         con.Close();
 
     }//page load end
+    
 
 
 }//partial class end
